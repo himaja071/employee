@@ -67,9 +67,10 @@
         <div class=" d-flex justify-content-end">
             <button routerLink="/add" class="btn btn-outline-primary m-1">Add Employee</button>
         </div>
-        <h6>Current Employees</h6>
-        <ul class="" *ngFor="let employee of employees">
-            <ng-container *ngIf="!employee.toDate">
+        <div style="height: 900px;overflow: scroll;">
+          <h6>Current Employees</h6>
+        <ul class="container" *ngFor="let employee of employees">
+            <div *ngIf="!employee.toDate" class="mobile_list">
                 <li><b>{{ employee.name }}</b></li>
                 <li>{{ employee.role }}</li>
                 <li>{{employee.fromDate | date: 'dd/MM/yyyy'}}</li>
@@ -79,11 +80,11 @@
                     <button routerLink="/add/{{ employee.id }}" class="btn btn-light ms-2"><i class="fa fa-pencil" aria-hidden="true"></i>
                     </button>
                 </li>
-            </ng-container>
+            </div>
         </ul>
         <h6>Previous Employees</h6>
-        <ul class="" *ngFor="let employee of employees">
-            <ng-container *ngIf="employee.toDate">
+        <ul class="container" *ngFor="let employee of employees">
+            <div *ngIf="employee.toDate" class="mobile_list">
                 <li><b>{{ employee.name }}</b></li>
                 <li>{{ employee.role }}</li>
                 <li>{{employee.fromDate | date: 'dd/MM/yyyy'}} - {{employee.toDate | date: 'dd/MM/yyyy'}}</li>
@@ -93,8 +94,10 @@
                     <button routerLink="/add/{{ employee.id }}" class="btn btn-light ms-2"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
                     </button>
                 </li>
-            </ng-container>
+              </div>
         </ul>
+        </div>
+        
     </div>
 </div>
 
