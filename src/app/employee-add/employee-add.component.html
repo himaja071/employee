@@ -1,0 +1,80 @@
+<div class="container mt-5 p-3">
+    <h4 class="text-center">Add Employee Details</h4>
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+        <form [formGroup]="empForm" (ngSubmit)="addEmployee()">
+            <label for="name" class="form-label required">Employee Name</label>
+            <div class="mb-1 input-group">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user-circle" aria-hidden="true"></i>
+                </span>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Enter name"
+                />
+            </div>
+            <div *ngIf="empForm.get('name')?.touched && empForm.get('name')?.invalid || submitted" class="text-danger">
+                <small *ngIf="empForm.get('name')?.errors?.['required']">Name is required.</small>
+                <small *ngIf="empForm.get('name')?.errors?.['minlength']">
+                  Name must be at least 3 characters long.
+                </small>
+              </div>
+            <label for="role" class="form-label required">Select Role</label>
+            <div class="mb-1 input-group">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-laptop" aria-hidden="true"></i>
+                </span>
+                <select id="role" class="form-select" placeholder="Select Role" formControlName="role" name="role">
+                    <option value="" disabled >Select role</option>
+                    <option *ngFor="let emp of employeeRoles" [value]="emp.name">
+                      {{ emp.name }}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="empForm.get('role')?.touched && empForm.get('role')?.invalid || submitted" class="text-danger">
+                <small *ngIf="empForm.get('role')?.errors?.['required']">Role is required.</small>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="fromDate" class="form-label required">Select Joining Date</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <input type="text"
+                            class="form-control"
+                            #dp="bsDatepicker"
+                            [bsConfig]="bsConfig"
+                            formControlName="fromDate"
+                            bsDatepicker [(bsValue)]="fromDate"
+                            (bsValueChange)="onStartDateChange($event)">
+                    </div>
+                    <div *ngIf="empForm.get('fromDate')?.touched && empForm.get('fromDate')?.invalid || submitted" class="text-danger">
+                        <small *ngIf="empForm.get('fromDate')?.errors?.['required']">Joining Date is required.</small>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="toDate" class="form-label">Select Leaving Date</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <input type="text"
+                            class="form-control"
+                            #dp="bsDatepicker"
+                            [bsConfig]="bsConfig1"
+                            formControlName="toDate"
+                            bsDatepicker [(bsValue)]="toDate">
+                    </div>
+                </div>
+            </div>
+           <div class="justify-content-end d-flex align-items-end mt-4">
+            <button type="submit" class="btn btn-outline-primary m-2" routerLink="/">Cancel</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="!employeeId">Save</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf="employeeId">Update</button>
+           </div>
+        </form>
+    </div>
+    
+  </div>
+</div>
+

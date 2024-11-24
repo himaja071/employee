@@ -1,0 +1,100 @@
+<div class="employee-list" *ngIf="!isMobileDevice">
+    <h4 class="text-center p-3">Employee List</h4>
+    <div class="container">
+        <div class=" d-flex justify-content-end">
+            <button routerLink="/add" class="btn btn-outline-primary m-1">Add Employee</button>
+        </div>
+        <h6>Current Employees</h6>
+        <table class="table" border="1">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>DOJ</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of employees">
+                <ng-container *ngIf="!employee.toDate">
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.role }}</td>
+                    <td>{{ employee.fromDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>
+                      <button (click)="deleteEmployee(employee.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                      <button routerLink="/add/{{ employee.id }}" class="btn btn-light ms-2"><i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                </ng-container>
+              </tr>
+            </tbody>
+        </table>
+        <h6>Previous Employees</h6>
+        <table class="table" border="1">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>DOJ</th>
+                <th>DOL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of employees">
+                <ng-container *ngIf="employee.toDate">
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.role }}</td>
+                    <td>{{ employee.fromDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ employee.toDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>
+                      <button (click)="deleteEmployee(employee.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                      <button routerLink="/add/{{ employee.id }}" class="btn btn-light ms-2"><i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                </ng-container>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+<div *ngIf="isMobileDevice">
+    <h4 class="text-center p-3">Employee List</h4>
+    <div class="container">
+        <div class=" d-flex justify-content-end">
+            <button routerLink="/add" class="btn btn-outline-primary m-1">Add Employee</button>
+        </div>
+        <h6>Current Employees</h6>
+        <ul class="" *ngFor="let employee of employees">
+            <ng-container *ngIf="!employee.toDate">
+                <li><b>{{ employee.name }}</b></li>
+                <li>{{ employee.role }}</li>
+                <li>{{employee.fromDate | date: 'dd/MM/yyyy'}}</li>
+                <li>
+                    <button (click)="deleteEmployee(employee.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                    <button routerLink="/add/{{ employee.id }}" class="btn btn-light ms-2"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+        <h6>Previous Employees</h6>
+        <ul class="" *ngFor="let employee of employees">
+            <ng-container *ngIf="employee.toDate">
+                <li><b>{{ employee.name }}</b></li>
+                <li>{{ employee.role }}</li>
+                <li>{{employee.fromDate | date: 'dd/MM/yyyy'}} - {{employee.toDate | date: 'dd/MM/yyyy'}}</li>
+                <li>
+                    <button (click)="deleteEmployee(employee.id)" class="btn btn-danger"><i class="fa fa-trash fa-fw" aria-hidden="true"></i>
+                    </button>
+                    <button routerLink="/add/{{ employee.id }}" class="btn btn-light ms-2"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>
+
